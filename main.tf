@@ -156,16 +156,3 @@ echo ECS_CLUSTER=${aws_ecs_cluster.ecs_cluster.name} >> /etc/ecs/ecs.config
 # There's no CloudFormation helper scripts in Terraform
 EOF
 }
-
-// https://www.terraform.io/docs/providers/aws/r/ecs_task_definition.html
-// similar to deployment manifest in; needs a service to actually run
-resource "aws_ecs_task_definition" "app1" {
-  family                = "app1"
-  container_definitions = "${file("task_definitions/original.json")}"
-}
-
-// https://www.terraform.io/docs/providers/aws/r/ecs_service.html
-// runs you task_definitions as tasks
-resource "aws_ecs_service" "service1" {
-  name = "myservice1"
-}
